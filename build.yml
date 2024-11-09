@@ -1,6 +1,5 @@
  curl 'https://syllaby.io/wp-json/api/v1/prompt' \
   -H 'content-type: application/json' \
-  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36' \
   --data-raw $'{"chrome_extension":true,"youtube_id":"XXXX","transcript":"Free Youtube transcript summaries with our new Chrome extension!","title":"XXXXXX - YouTube","bullet":false}'
   
   
