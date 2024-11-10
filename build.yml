@@ -1,8 +1,0 @@
- curl 'https://syllaby.io/wp-json/api/v1/prompt' \
-  -H 'content-type: application/json' \
-  --data-raw $'{"chrome_extension":true,"youtube_id":"XXXX","transcript":"Free Youtube transcript summaries with our new Chrome extension!","title":"XXXXXX - YouTube","bullet":false}'
-  
-  
-  
-  
-  

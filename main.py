@@ -12,16 +12,22 @@ print(json_formatted)
 
 import requests
 
- 
-# data = '{
-#     'chrome_extension': True,
-#     'youtube_id': 'ilca5A9mLIA',
-#     'transcript': json_formatted,
-#     'title': 'dummy title',
-#     'bullet': 'false' }'
- 
-## post的时候，使用json参数
-response = requests.post(url='https://syllaby.io/wp-json/api/v1/prompt', headers={"Content-Type": "application/json; charset=utf-8"}, data='{"chrome_extension":true,"youtube_id":"rAyMr0CWQ3U","transcript":"Free Youtube transcript summaries with our new Chrome extension!","title":"XXXXXX - YouTube","bullet":false}')
+headers = {
+    'Content-Type': 'application/json',
+}
 
+json_data = {
+    'chrome_extension': True,
+    'youtube_id': 'fdgd',
+    'transcript': 'ReqBin Online Curl Client allows you to execute Curl commands directly in the browser, eliminating the need for external tools, and does not require the installation of any browser plug-ins or software on your computer.',
+    'title': 'XXXXXX - YouTube',
+    'bullet': False,
+}
+
+data = '{"chrome_extension":true,"youtube_id":"fdgd","transcript":"ReqBin Online Curl Client allows you to execute Curl commands directly in the browser, eliminating the need for external tools, and does not require the installation of any browser plug-ins or software on your computer.","title":"XXXXXX - YouTube","bullet":false}'
+response = requests.post('https://syllaby.io/wp-json/api/v1/prompt', headers=headers, data=data)
+
+# response = requests.post('https://syllaby.io/wp-json/api/v1/prompt', headers=headers, json=json_data)
+# Print the response
 print(response.status_code)
 print(response.content)
