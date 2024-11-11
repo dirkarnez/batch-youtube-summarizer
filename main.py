@@ -1,33 +1,35 @@
+import subprocess
+import json
+from argparse import ArgumentParser
+
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.formatters import TextFormatter
 
-transcript = YouTubeTranscriptApi.get_transcript("ilca5A9mLIA")
+parser = ArgumentParser()
+parser.add_argument('-v', '--video-id')
+args = parser.parse_args()
+
+# video_id="AHyFar_R2K0" #"ilca5A9mLIA"
+print(args.video_id)
+
+transcript = YouTubeTranscriptApi.get_transcript(args.video_id)
 
 formatter = TextFormatter()
 
 # .format_transcript(transcript) turns the transcript into a JSON string.
-json_formatted = formatter.format_transcript(transcript)
+text_formatted = formatter.format_transcript(transcript).replace('\n', ' ')
 
-print(json_formatted)
+print(text_formatted)
 
-import requests
+output = subprocess.run(
+    [
+        "curl", "-X", "POST", "https://syllaby.io/wp-json/api/v1/prompt", 
+        "-H", "Content-Type: application/json", 
+        "-d", f'{{"chrome_extension":true,"youtube_id":"{args.video_id}","transcript":"{text_formatted}","title":"XXXXXX - YouTube","bullet":false}}'
+    ],
+    capture_output=True
+)
 
-headers = {
-    'Content-Type': 'application/json',
-}
-
-json_data = {
-    'chrome_extension': True,
-    'youtube_id': 'fdgd',
-    'transcript': 'ReqBin Online Curl Client allows you to execute Curl commands directly in the browser, eliminating the need for external tools, and does not require the installation of any browser plug-ins or software on your computer.',
-    'title': 'XXXXXX - YouTube',
-    'bullet': False,
-}
-
-data = '{"chrome_extension":true,"youtube_id":"fdgd","transcript":"ReqBin Online Curl Client allows you to execute Curl commands directly in the browser, eliminating the need for external tools, and does not require the installation of any browser plug-ins or software on your computer.","title":"XXXXXX - YouTube","bullet":false}'
-response = requests.post('https://syllaby.io/wp-json/api/v1/prompt', headers=headers, data=data)
-
-# response = requests.post('https://syllaby.io/wp-json/api/v1/prompt', headers=headers, json=json_data)
-# Print the response
-print(response.status_code)
-print(response.content)
+print(output)
+a=json.loads(output.stdout)
+print(a['data'][0]['summary'])
