@@ -2,6 +2,6 @@
 set PYTHON_DIR=%USERPROFILE%\Downloads\python-3.10.8-amd64-portable
 set PATH=%PYTHON_DIR%;%PYTHON_DIR%\Scripts
 
-python main.py -v AHyFar_R2K0
+python main.py --video-id="-6RSGVpS_ik"
 
 pause

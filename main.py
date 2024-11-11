@@ -21,11 +21,14 @@ text_formatted = formatter.format_transcript(transcript).replace('\n', ' ')
 
 print(text_formatted)
 
+with open("input.json", "w") as outfile:
+    outfile.write(f'{{"chrome_extension":true,"youtube_id":"{args.video_id}","transcript":"{text_formatted}","title":"XXXXXX - YouTube","bullet":false}}')
+
 output = subprocess.run(
     [
         "curl", "-X", "POST", "https://syllaby.io/wp-json/api/v1/prompt", 
         "-H", "Content-Type: application/json", 
-        "-d", f'{{"chrome_extension":true,"youtube_id":"{args.video_id}","transcript":"{text_formatted}","title":"XXXXXX - YouTube","bullet":false}}'
+        "-d", "@input.json"
     ],
     capture_output=True
 )
