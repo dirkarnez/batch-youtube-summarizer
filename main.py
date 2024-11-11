@@ -17,7 +17,8 @@ transcript = YouTubeTranscriptApi.get_transcript(args.video_id)
 formatter = TextFormatter()
 
 # .format_transcript(transcript) turns the transcript into a JSON string.
-text_formatted = formatter.format_transcript(transcript).replace('\n', ' ')
+text_formatted = formatter.format_transcript(transcript).replace('\n', ' ').encode('ascii', 'ignore').decode('utf-8')
+
 
 print(text_formatted)
 
