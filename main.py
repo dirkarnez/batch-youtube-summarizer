@@ -14,12 +14,14 @@ print(args.video_id)
 
 ytt_api = YouTubeTranscriptApi()
 
-transcript = ytt_api.fetch(args.video_id)
+# transcript = ytt_api.fetch(args.video_id)
+transcript = ytt_api.list(args.video_id).find_generated_transcript(["yue"]).fetch()
+print(transcript)
 
 formatter = TextFormatter()
 
 # .format_transcript(transcript) turns the transcript into a JSON string.
-text_formatted = formatter.format_transcript(transcript).replace('\n', ' ').encode('ascii', 'ignore').decode('utf-8')
+text_formatted = formatter.format_transcript(transcript).replace('\n', ' ').encode('utf-8', 'ignore').decode('utf-8')
 
 print(text_formatted)
 
